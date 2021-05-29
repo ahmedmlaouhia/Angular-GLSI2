@@ -1,0 +1,16 @@
+<div *ngIf="comments.length>0 ; else noComments">
+    <h3>Messages</h3>
+        <div *ngFor ="let c of comments; let i=index; let isFirst=first; let isEven=even let isOdd=odd">
+            <div class="px-3 py-3 border">
+                <ng-container *ngIf="isEven">
+                    {{c.message}}<span class="rounded-pill float-right px-2" [ngClass]="{'bg-success':isEven, 'text-white':isEven}">{{c.date | date:'y MMM EEEE d-HH:mm:ss'|uppercase}}</span>
+                </ng-container>
+                <ng-container *ngIf="isOdd">
+                    {{c.message}}<span  class="rounded-pill float-right px-2" [ngClass]="{'bg-danger':isOdd, 'text-white':isOdd}">{{c.date | date:'y MMM EEEE d-HH:mm:ss'|uppercase}}</span>
+                </ng-container>
+            </div>
+        </div>
+</div>
+<ng-template #noComments>
+    <p>No Comments</p>
+</ng-template>

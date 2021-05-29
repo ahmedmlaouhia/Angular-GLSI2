@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="card border-primary mb-3">
+        <div class="card-header bg-primary text-white">About Component</div>
+        <div class="card-body">
+            <ul>
+                <li>Name : {{info.name}}</li>
+                <li>Email : {{info.email}}</li>
+                <li>Tel : {{info.tel}}</li>
+            </ul>
+            <div class="form-group">
+                <label> message</label>
+                <div class="input-group mb-3 ">
+                    <input type="text" class="form-control" placeholder="your message" [(ngModel)]="comment.message">
+                </div>
+                <button class="btn btn-primary" (click)="addComment()" [disabled]="newComment" >add comment</button>
+            </div>
+            <app-messages [comments]="comments"></app-messages>
+        </div>
+    </div>
+</div>
