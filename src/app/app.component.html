@@ -6,20 +6,20 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/home">home</a>
+        <li *ngIf="isAuth" class="nav-item">
+          <a class="nav-link" routerLink="/home" outerLinkActive="active">home</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/about">about</a>
+        <li *ngIf="isAuth" class="nav-item">
+          <a class="nav-link" routerLink="/about" outerLinkActive="active">about</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/contact">Contact</a>
+        <li *ngIf="isAuth" class="nav-item">
+          <a class="nav-link" routerLink="/contact" outerLinkActive="active">Contact</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/sigin">signin</a>
+        <li *ngIf="!isAuth" class="nav-item">
+          <a class="nav-link" routerLink="/sigin" outerLinkActive="active">signin</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/notes">Notes</a>
+        <li *ngIf="isAuth" class="nav-item">
+          <a class="nav-link" routerLink="/notes" outerLinkActive="active">Notes</a>
         </li>
       </ul>
     </div>

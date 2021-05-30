@@ -4,6 +4,7 @@ import { AboutComponent } from './about/about.component';
 import { ContactDetailComponent } from './contact-detail/contact-detail.component';
 import { ContactComponent } from './contact/contact.component';
 import { EditContactComponent } from './edit-contact/edit-contact.component';
+import { EditReactiveFormComponent } from './edit-reactive-form/edit-reactive-form.component';
 import { AuthGuard } from './guards/auth.guard';
 import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
@@ -22,9 +23,14 @@ const routes: Routes = [
     component:ContactComponent
   },
   {
-    path:"contact/edits", 
+    path:"contact/edits/:id", 
     canActivate:[AuthGuard],
     component:EditContactComponent
+  },
+  {
+    path:"contact/edit-reactive-form", 
+    canActivate:[AuthGuard],
+    component:EditReactiveFormComponent
   },
   {
     path:"contacts/:id", 

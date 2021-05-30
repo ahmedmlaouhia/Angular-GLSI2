@@ -1,5 +1,8 @@
-<button class="btn btn-primary" (click)="onAddContact()">
+<button class="btn btn-primary mx-3 my-3" (click)="onAddContact()">
   add Contact
+</button>
+<button class="btn btn-warning mx-3 my-3" (click)="onAddContactReactiveForm()">
+  add Contact with reactive form
 </button>
 <div class="card border-primary mb-3">
   <div class="card-header bg-primary text-white "> Contacts Component</div>
@@ -12,21 +15,30 @@
             <th scope="col">Name</th>
             <th scope="col"></th>
             <th scope="col"></th>
+            <th scope="col"></th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let c of contacts">
             <td>{{c.name}}</td>
             <td><a class="btn btn-success" routerLink="/contacts/{{c.id}}">Detail</a></td>
+            <td><a class="btn btn-warning" routerLink="/contacts/edit/{{c.id}}">Detail</a></td>
             <td><a class="btn btn-danger"  (click)="onDelete(c.id)">Delete</a></td>
           </tr>
         </tbody>
       </table>
     </div>
-    <ng-template #noContacts>
-      <p>No Contacts</p>
-    </ng-template>
-  </div>
+        <div [hidden]="!isWaiting || errMess" class="text-center">
+          <div class="spinner-border" role="status"></div> 
+          <h4>Loading . . . Please Wait</h4>
+      </div>
+      <ng-template #noContacts>
+          <p [hidden]="isWaiting">No contacts</p>
+          <div *ngIf="errMess" class="alert alert-danger">
+            <strong>Error !</strong> {{errMess}}
+          </div>
+      </ng-template>
+    </div>
 </div>
 <button class="btn btn-primary" (click)="onAbout()">
   Go to About

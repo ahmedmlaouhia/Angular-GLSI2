@@ -1,6 +1,5 @@
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { Contact } from '../shared/contact';
 import { ContactService } from '../services/contact.service';
 
@@ -10,26 +9,46 @@ import { ContactService } from '../services/contact.service';
   styleUrls: ['./edit-contact.component.css']
 })
 export class EditContactComponent implements OnInit {
+  contact: Contact = {
+  id: null,
+  name: "",
+  email: "" ,
+  website: "",
+  projects: [],
+  featured: false, 
+  image: 'images/unknow-avatar.jpg'  };
+ 
 
-  constructor(private router: Router,private contactService : ContactService) { }
+  constructor(private route:ActivatedRoute, private router: Router,private contactService : ContactService) { }
 
   ngOnInit(): void {
+    this.route.paramMap.subscribe(result => {
+      let id = result.get('id');
+      if (id != "-1") this.initContact(id);
+    });
   }
-  onSubmit(form: NgForm){
-    let contact : Contact ={
-      id : 4 ,
-      name : form.value['name'],
-      email : form.value ['email'],
-      website : form.value ['website'],
-      projects : [form.value[ 'projects']],
-      image :'./assets/images/bill_gates.jpg',
-      featured : true
+  initContact(id) {
+    this.contactService.getContactById(id).subscribe(contact => {
+      this.contact = contact;
+      console.log(this.contact);
+    })
+
+  }
+  onSubmit(){
+    if (this.contact.id == null) {
+      this.contactService.addContact(this.contact).subscribe(
+        contact => {this.router.navigate(['/contact'])}
+      );
+    }else {
+      this.contactService.updateContact(this.contact).subscribe(
+        contact => {
+          this.router.navigate(['/contacts/'+this.contact.id])
+        }
+      );
     }
 
-    this.contactService.addContact(contact);
-    this.router.navigate(['/contact'])
-
   }
+
   onContacts(){
     this.router.navigate(['/contact']);
   }

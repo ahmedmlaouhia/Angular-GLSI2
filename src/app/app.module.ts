@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule }  from '@angular/forms';
+import { FormsModule, ReactiveFormsModule }  from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AboutComponent } from './about/about.component';
@@ -17,6 +17,10 @@ import { AuthService } from './services/auth.service';
 import { EditContactComponent } from './edit-contact/edit-contact.component';
 import { NoteComponent } from './note/note.component';
 import { NoteService } from './services/note.service';
+import { EditReactiveFormComponent } from './edit-reactive-form/edit-reactive-form.component';
+import { ProcessHttpmsgService } from './services/process-httpmsg.service';
+import { HttpClientModule } from '@angular/common/http';
+import { BaseURL } from './Shared/baseurl';
 
 @NgModule({
   declarations: [
@@ -29,19 +33,24 @@ import { NoteService } from './services/note.service';
     NotFoundComponent,
     ContactDetailComponent,
     EditContactComponent,
-    NoteComponent
+    NoteComponent,
+    EditReactiveFormComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [
     AboutService,
     ContactService,
     NoteService,
     AuthGuard,
-    AuthService
+    AuthService,
+    {provide: 'BaseURL', useValue: BaseURL},
+    ProcessHttpmsgService,
   ],
   bootstrap: [AppComponent]
 })

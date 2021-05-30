@@ -1,33 +1,36 @@
-<div class="card border-prmary mb-3">
-    <div class="card-header bg-primary test-white "> Edit Contact Component </div>
+<div class="card border-primary mb-3">
+    <div class="card-header bg-primary text-white"> Edit Contact Component</div>
     <div class="card-body">
-        <h3>Add Contact</h3>
-        <form (ngSubmit)="onSubmit(form)" #form="ngForm">
+        <h3 *ngIf="!contact.id; else update">Add contact</h3>
+        <ng-template #update><h3>Update Contact</h3> </ng-template>
+        <form (ngSubmit)="onSubmit()" #form="ngForm">
             <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" id="name" class="form-control" name="name"  [ngClass]="{'is-invalid' :name.invalid && name.dirty}" #name="ngModel" required ngModel>
-                <div *ngIf="name.invalid && name.dirty" class="invalide-feedback" >Please provide a name.</div>
+                <input type="text" id="name" class="form-control" name="name" [ngClass]="{'is-invalid' :name.invalid && name.dirty}"
+                #name="ngModel" required [(ngModel)]="contact.name">
+                <div *ngIf="name.invalid && name.dirty" class="invalid-feedback">Please provoide a name.</div>
             </div>
             <div class="form-row">
                 <div class="col">
                     <label for="email">Email</label>
-                    <input type="email" id="email" class="form-control" name="email" [ngClass]="{'is-invalid' :email.invalid && email.dirty}" #email="ngModel" 
-                    required pattern="[a-zA-Z0-9._%+-]+@[a-z0-9]+\.[a-z]{2,4}$" ngModel>
-                    <div *ngIf="email.invalid && email.dirty" class="invalide-feedback" >Please provide email address.</div>  
+                    <input type="text" id="email" class="form-control" [ngClass]="{'is-invalid' :email.invalid && email.dirty}"
+                     name="email" #email="ngModel" required [(ngModel)]="contact.email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.+[a-z]{2,4}$"  ngModel>
+                     <div *ngIf="email.invalid && email.dirty" class="invalid-feedback">Please provoide a email adress.</div>
                 </div>
                 <div class="col">
                     <label for="website">Website</label>
-                    <input type="url" id="website" class="form-control" name="website" [ngClass]="{'is-invalid' :website.invalid && website.dirty}" #website="ngModel" required pattern="https?://.+" ngModel > 
-                    <div *ngIf="website.invalid && website.dirty" class="invalide-feedback" >Please provide a valid URL (http://...).</div>     
+                    <input type="text" id="website" class="form-control"  [ngClass]="{'is-invalid' :website.invalid && website.dirty}" 
+                     name="website" #website="ngModel" required pattern="https?://.+"[(ngModel)]="contact.website">
+                     <div *ngIf="website.invalid && website.dirty" class="invalid-feedback">Please provoide a valid url(http://...).</div> 
                 </div>
-            </div> 
-            <div class="form-group">
-                <label for="projects">Projects (seperated with comma ",")</label>
-                <input type="text" id="projects" class="form-control" name="projects" [ngClass]="{'is-invalid' :projects.invalid && projects.dirty}" #projects="ngModel" required ngModel >
-                <div *ngIf="email.invalid && email.dirty" class="invalide-feedback" >Please provide email address.</div>  
             </div>
-            <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Save</button>
-
+            <div class="form-group mt-2">
+                <label for="projects">Projects (seperated with comma",")</label>
+                <input type="text" id="projects" class="form-control" name="projects"  [ngClass]="{'is-invalid' :projects.invalid && projects.dirty}" 
+                #projects="ngModel" required [(ngModel)]="contact.projects">
+                <div *ngIf="projects.invalid && projects.dirty" class="invalid-feedback">Please provoide a email project.</div>
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled]="form.invalide">Save</button>
         </form>
     </div>
 </div>
